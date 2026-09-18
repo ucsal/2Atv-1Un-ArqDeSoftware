@@ -1,105 +1,195 @@
-# 2Atv-1Un-ArqDeSoftware
+# Padrões de Projeto — Extensão
 
-## Padrão Decorator e Iterator
+Projeto desenvolvido para a disciplina de Arquitetura de Software da UCSAL.
 
-Decorator: serve para adicionar novas funcionalidades aos dispositivos sem alterar a classe original, por exemplo, pegamos a classe LampadaInteligente e adicionamos recursos como monitoramento de energia e notificações através dos decorators, deixando o sistema mais flexível
+O objetivo é estudar e aplicar padrões de projeto da categoria **Extensão**, demonstrando como eles ajudam a tornar o código mais organizado, reutilizável, flexível e fácil de manter.
 
-Iterator: serve para percorrer todos os dispositivos cadastrados na casa sem precisar saber como eles estão armazenados internamente, por exemplo, ele passa pela lâmpada, geladeira, tv, um por um
+## Padrões abordados
 
+O projeto apresenta os seguintes padrões:
+
+- Decorator;
+- Iterator;
+- Visitor.
+
+Cada padrão possui uma finalidade diferente e pode ser utilizado de acordo com o problema que precisa ser resolvido.
+
+---
+
+## Padrão Decorator
+
+### Conceito
+
+O **Decorator** é um padrão estrutural que permite adicionar novas responsabilidades ou comportamentos a um objeto de forma dinâmica, sem alterar sua classe original.
+
+Ele utiliza objetos que envolvem outros objetos, acrescentando funcionalidades antes ou depois da execução do comportamento principal.
+
+### Problema que resolve
+
+Em alguns sistemas, é necessário adicionar funcionalidades a um objeto sem criar várias subclasses para cada combinação possível.
+
+Por exemplo, um dispositivo pode receber diferentes recursos adicionais, como:
+
+- Monitoramento;
+- Notificações;
+- Registro de atividades;
+- Controle remoto.
+
+Criar uma classe para cada combinação dessas funcionalidades deixaria o código difícil de manter.
+
+### Funcionamento
+
+O Decorator possui uma estrutura semelhante à seguinte:
+
+- **Componente:** define a operação principal;
+- **Componente concreto:** implementa o comportamento básico;
+- **Decorator:** mantém uma referência para outro componente;
+- **Decorators concretos:** adicionam novos comportamentos.
+
+Cada decorator pode executar uma ação adicional e depois chamar o objeto envolvido.
+
+### Vantagens
+
+- Permite adicionar funcionalidades dinamicamente;
+- Evita a criação de muitas subclasses;
+- Mantém o princípio da responsabilidade única;
+- Facilita a combinação de comportamentos.
+
+### Limitações
+
+- Pode aumentar a quantidade de objetos;
+- A estrutura pode ficar mais complexa;
+- A ordem dos decorators pode alterar o resultado final.
+
+---
+
+## Padrão Iterator
+
+### Conceito
+
+O **Iterator** é um padrão comportamental que permite percorrer os elementos de uma coleção sem expor sua estrutura interna.
+
+Ele fornece uma forma padronizada de acessar os elementos, independentemente de como a coleção é implementada.
+
+### Problema que resolve
+
+Um sistema pode armazenar informações em diferentes estruturas, como:
+
+- Listas;
+- Conjuntos;
+- Filas;
+- Coleções personalizadas.
+
+Sem o Iterator, o código que percorre essas estruturas precisaria conhecer detalhes da implementação de cada coleção.
+
+### Funcionamento
+
+O Iterator normalmente possui métodos para:
+
+- Verificar se existem mais elementos;
+- Retornar o próximo elemento;
+- Percorrer a coleção de forma controlada.
+
+A coleção disponibiliza um Iterator, e o código cliente utiliza esse objeto para acessar seus elementos.
+
+### Exemplo de aplicação
+
+Em um sistema de gerenciamento de dispositivos, o Iterator pode ser utilizado para percorrer todos os dispositivos cadastrados, sem que o código precise conhecer como eles estão armazenados.
+
+### Vantagens
+
+- Separa a estrutura da coleção do código de navegação;
+- Permite percorrer diferentes coleções de maneira semelhante;
+- Facilita a criação de coleções personalizadas;
+- Mantém o encapsulamento da coleção.
+
+### Limitações
+
+- Pode exigir a criação de várias classes;
+- Para coleções simples, pode ser desnecessário;
+- Alguns iterators podem consumir recursos ao percorrer grandes coleções.
+
+---
 
 ## Padrão Visitor
-Conceito
 
-O Visitor é um padrão comportamental que permite adicionar novas operações a um conjunto de objetos sem alterar suas classes.
+### Conceito
 
-Ele separa as operações dos objetos que recebem essas operações, facilitando a manutenção e a expansão do sistema.
+O **Visitor** é um padrão comportamental que permite adicionar novas operações a diferentes objetos sem alterar diretamente suas classes.
 
-Problema do mundo real
+Ele separa as operações dos objetos que recebem essas operações.
 
-Em uma casa inteligente, diferentes dispositivos podem precisar de operações como:
+### Problema que resolve
 
-Calcular consumo de energia;
+Em um sistema com diferentes tipos de dispositivos, podem surgir várias operações, como:
 
-Realizar manutenção;
+- Calcular consumo de energia;
+- Realizar manutenção;
+- Gerar relatórios;
+- Verificar o estado dos equipamentos.
 
-Gerar relatórios;
+Colocar todas essas operações dentro das classes dos dispositivos pode deixar o código complexo e difícil de manter.
 
-Verificar o estado dos dispositivos.
+### Aplicação no projeto
 
-Adicionar essas operações diretamente em cada dispositivo pode deixar o código complexo e difícil de manter.
+O Visitor pode ser aplicado em um sistema de gerenciamento de dispositivos inteligentes, como:
 
-Aplicação no projeto SmartHome Manager
+- Lâmpadas;
+- Termostatos;
+- Câmeras de segurança.
 
-O padrão Visitor foi aplicado em dispositivos inteligentes, como:
+Cada dispositivo pode aceitar diferentes Visitors, responsáveis por executar operações específicas.
 
-LampadaInteligente;
+Exemplos de Visitors:
 
-TermostatoInteligente;
+- `ConsumoEnergiaVisitor`;
+- `ManutencaoVisitor`.
 
-CameraSeguranca.
+### Funcionamento
 
-Cada dispositivo aceita um Visitor por meio do método aceitar().
+Os dispositivos implementam uma operação para aceitar um Visitor.
 
-Os Visitors utilizados são:
+O Visitor possui métodos específicos para cada tipo de dispositivo. Assim, a operação correta é executada de acordo com o objeto visitado.
 
-ConsumoEnergiaVisitor: calcula o consumo dos dispositivos;
+Esse funcionamento utiliza o conceito de **Double Dispatch**.
 
-ManutencaoVisitor: verifica possíveis necessidades de manutenção.
+### Vantagens
 
-Estrutura das classes
-DispositivoVisitable
+- Permite adicionar novas operações sem alterar os dispositivos;
+- Separa responsabilidades;
+- Facilita a manutenção;
+- Evita concentrar muitas funcionalidades nas classes principais;
+- Permite reutilizar operações em diferentes objetos.
 
-Interface implementada pelos dispositivos que podem receber um Visitor.
+### Limitações
 
-DispositivoVisitor
+- A criação de novos tipos de objetos pode exigir alterações nos Visitors;
+- Pode aumentar a quantidade de classes e interfaces;
+- É mais indicado quando existem muitas operações diferentes sobre os mesmos objetos.
 
-Interface que define os métodos de visita para cada tipo de dispositivo.
+---
 
-Dispositivos visitáveis
+## Comparação entre os padrões
 
-Representam os equipamentos da casa inteligente e implementam o método aceitar().
+| Padrão | Categoria | Principal finalidade |
+|---|---|---|
+| Decorator | Estrutural | Adicionar comportamentos a objetos dinamicamente |
+| Iterator | Comportamental | Percorrer coleções sem expor sua estrutura interna |
+| Visitor | Comportamental | Adicionar operações a objetos sem modificar suas classes |
 
-Visitors
+## Tecnologias utilizadas
 
-Contêm as operações que serão executadas nos dispositivos, sem modificar suas classes.
+- Java;
+- Maven;
+- JUnit 5;
+- Git;
+- GitHub.
 
-Funcionamento
+## Testes
 
-O dispositivo recebe um Visitor e chama o método correspondente ao seu tipo. Esse processo utiliza Double Dispatch, permitindo que a operação correta seja executada para cada dispositivo.
+O projeto pode utilizar testes automatizados para verificar o funcionamento dos padrões implementados.
 
-Exemplo de resultado
-Consumo da lâmpada: 12 kWh
-Consumo do termostato: 35 kWh
-Manutenção da câmera: necessária
-Vantagens
+Para executar os testes com Maven:
 
-Facilita a adição de novas operações;
-
-Mantém as responsabilidades separadas;
-
-Evita alterações constantes nas classes dos dispositivos;
-
-Melhora a organização do código.
-
-Limitações
-
-A criação de novos tipos de dispositivos pode exigir alterações nos Visitors;
-
-A estrutura pode ficar mais complexa em projetos pequenos.
-
-Testes realizados
-
-Foram criados testes com JUnit 5 para verificar:
-
-A aceitação dos Visitors;
-
-O cálculo de consumo;
-
-A execução das operações de manutenção.
-
-Para executar os testes:
-
+```bash
 mvn test
-Conclusão
-
-O padrão Visitor foi utilizado para separar as operações dos dispositivos inteligentes. Dessa forma, o projeto pode receber novas funcionalidades sem modificar diretamente as classes dos dispositivos, tornando o sistema mais organizado e fácil de expandir.
