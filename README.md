@@ -1,16 +1,10 @@
 # 2Atv-1Un-ArqDeSoftware
 
+## Padrão Decorator e Iterator
 
+Decorator: serve para adicionar novas funcionalidades aos dispositivos sem alterar a classe original, por exemplo, pegamos a classe LampadaInteligente e adicionamos recursos como monitoramento de energia e notificações através dos decorators, deixando o sistema mais flexível
 
-
-
-
-
-
-
-
-
-
+Iterator: serve para percorrer todos os dispositivos cadastrados na casa sem precisar saber como eles estão armazenados internamente, por exemplo, ele passa pela lâmpada, geladeira, tv, um por um
 
 
 Padrão Visitor
