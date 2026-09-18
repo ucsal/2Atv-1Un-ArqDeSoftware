@@ -7,7 +7,7 @@ Decorator: serve para adicionar novas funcionalidades aos dispositivos sem alter
 Iterator: serve para percorrer todos os dispositivos cadastrados na casa sem precisar saber como eles estão armazenados internamente, por exemplo, ele passa pela lâmpada, geladeira, tv, um por um
 
 
-Padrão Visitor
+## Padrão Visitor
 Conceito
 
 O Visitor é um padrão comportamental que permite adicionar novas operações a um conjunto de objetos sem alterar suas classes.
